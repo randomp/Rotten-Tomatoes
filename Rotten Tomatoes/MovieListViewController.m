@@ -15,7 +15,6 @@
     NSString *rtApiUrl;
     NSString *screenTile;
     UIRefreshControl *uiRefreshControl;
-    //BOOL isSearch;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -44,7 +43,6 @@
     [uiRefreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:uiRefreshControl];
     
-    //isSearch = NO;
     self.searchBar.delegate = self;
     self.tableView.tableHeaderView = self.searchBar;
     
@@ -107,6 +105,20 @@
     return cell;
 }
 
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
+{
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
+    self.searchResult = [NSMutableArray arrayWithArray: [self.movies filteredArrayUsingPredicate:resultPredicate]];
+    NSLog(@"size: %d",(int)self.searchResult.count);
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
+                                                         objectAtIndex:[self.searchDisplayController.searchBar
+                                                                        selectedScopeButtonIndex]]];
+    return YES;
+}
+
 - (void)getMoives {
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleFade];
     [MMProgressHUD showWithTitle:@"Loading"];
@@ -127,49 +139,6 @@
 - (void)refresh:(id)sender {
     [self getMoives];
     [(UIRefreshControl *)sender endRefreshing];
-}
-
-/*- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    NSLog(@"textDidChange");
-    if (searchText == nil || [searchText isEqualToString:@""]) {
-        isSearch = NO;
-        [self.tableView reloadData];
-        return;
-    }
-    NSLog(@"isSearch");
-    isSearch = YES;
-    [self.searchResult removeAllObjects];
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
-    self.searchResult = [NSMutableArray arrayWithArray: [self.movies filteredArrayUsingPredicate:resultPredicate]];
-    NSLog(@"size: %d",(int)self.searchResult.count);
-    [self.tableView reloadData];
-}*/
-
-- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope
-{
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
-    self.searchResult = [NSMutableArray arrayWithArray: [self.movies filteredArrayUsingPredicate:resultPredicate]];
-    NSLog(@"size: %d",(int)self.searchResult.count);
-}
-
-/*- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"search");
-    [self.searchBar resignFirstResponder];
-    [self.tableView reloadData];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    NSLog(@"cancel");
-    isSearch = NO;
-    [self.searchBar resignFirstResponder];
-    [self.tableView reloadData];
-}*/
-
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles]
-                                                         objectAtIndex:[self.searchDisplayController.searchBar
-                                                                        selectedScopeButtonIndex]]];
-    return YES;
 }
 
 /*
