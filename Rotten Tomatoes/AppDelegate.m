@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MovieListViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,39 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    // Set up cache.
+    // 4mb memory, 100mb of disk
+    NSURLCache *cache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:100*1024*1024 diskPath:nil];
+    [NSURLCache setSharedURLCache:cache];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    UIColor *tiffanyGreen = [UIColor colorWithRed:124.0f/255.0f green:238.0f/255.0f blue:206.0f/255.0f alpha:0.5f];
+    [[UINavigationBar appearance] setBarTintColor:tiffanyGreen];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
+    //[[UINavigationBar appearance] setBarStyle:UIStatusBarStyleLightContent];
+    
+    MovieListViewController *moviesViewController = [[MovieListViewController alloc] initWithType:movieList];
+    UINavigationController *moviesNavController = [[UINavigationController alloc] initWithRootViewController:moviesViewController];
+    
+    moviesNavController.tabBarItem.title = @"Movies";
+    moviesNavController.tabBarItem.image = [UIImage imageNamed:@"MovieIcon"];
+    
+    MovieListViewController *dvdViewController = [[MovieListViewController alloc] initWithType:dvdList];
+    UINavigationController *dvdNavController = [[UINavigationController alloc] initWithRootViewController:dvdViewController];
+    dvdNavController.tabBarItem.title = @"DVD";
+    dvdNavController.tabBarItem.image = [UIImage imageNamed:@"DVDIcon"];
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    tabBarController.viewControllers = @[moviesNavController, dvdNavController];
+    tabBarController.tabBar.tintColor = [UIColor whiteColor];
+    tabBarController.tabBar.barTintColor = tiffanyGreen;
+    
+    self.window.rootViewController = tabBarController;
+    self.window.backgroundColor = [UIColor clearColor];
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
