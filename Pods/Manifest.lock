@@ -21,7 +21,6 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - HexColors (2.2.1)
-  - LBBlurredImage (0.2.0)
   - MMProgressHUD (0.2.3)
   - pop (1.0.6)
   - TSMessages (0.9.10):
@@ -29,7 +28,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.2)
-  - LBBlurredImage
   - MMProgressHUD
   - pop (~> 1.0)
   - TSMessages
@@ -37,7 +35,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   HexColors: 01384d2bbe8dc4ffa43c3b4135db6e976952d153
-  LBBlurredImage: 30cc42be977bbcece286d26d2d9c08b8be7f05e8
   MMProgressHUD: 416686cee2e9af16691e82ebfdcf7caf1dd6f621
   pop: e518794da38942c05255eb64b36d894e70cb4f00
   TSMessages: 8598a0645e9d54847f6e5f3b070bef39c493bbf8

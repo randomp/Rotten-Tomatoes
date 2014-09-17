@@ -68,6 +68,43 @@
     return [NSString stringWithFormat:@"%@%@", style, HTML];
 }
 
++ (NSString *)styledHTMLwithHTMLForMovieDetail:(NSString *)HTML {
+    NSString *style = @"<meta charset=\"UTF-8\"><style> \
+    body { \
+    font-family: 'Cochin'; \
+    } \
+    span.title { \
+    font-size: 15px; \
+    font-weight: bold; \
+    color: #FFF; \
+    } \
+    span.synopsis { \
+    font-size: 12px; \
+    color: #FFF; \
+    } \
+    span.scores { \
+    font-size: 12px; \
+    line-height: 20px; \
+    color: #FFF; \
+    } \
+    span.synopsis-detail { \
+    font-size: 12px; \
+    line-height: 20px; \
+    color: #FFF; \
+    } \
+    span.mppa { \
+    color: #FFF; \
+    font-size: 12px; \
+    font-weight: bold; \
+    margin-right: 5px; \
+    border: 1px solid #FFF; \
+    } \
+    </style>";
+    
+    return [NSString stringWithFormat:@"%@%@", style, HTML];
+}
+
+
 + (NSAttributedString *)attributedStringWithHTML:(NSString *)HTML {
     NSDictionary *options = @{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType };
     return [[NSAttributedString alloc] initWithData:[HTML dataUsingEncoding:NSUTF8StringEncoding] options:options documentAttributes:NULL error:NULL];

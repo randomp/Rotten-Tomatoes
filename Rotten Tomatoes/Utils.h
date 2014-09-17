@@ -13,5 +13,6 @@
 
 + (void)loadImageUrl:(NSString *)url inImageView:(UIImageView *)imageView withAnimation:(BOOL)enableAnimation;
 + (NSString *)styledHTMLwithHTML:(NSString *)HTML;
++ (NSString *)styledHTMLwithHTMLForMovieDetail:(NSString *)HTML;
 + (NSAttributedString *)attributedStringWithHTML:(NSString *)HTML;
 @end

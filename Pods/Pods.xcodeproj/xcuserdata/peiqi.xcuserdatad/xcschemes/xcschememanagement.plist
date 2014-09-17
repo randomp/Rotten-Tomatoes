@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-LBBlurredImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-MMProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,37 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3E759D74200A4F7BA49B8D0D</key>
+		<key>01DCB708D17A45DCBD51BD94</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>45C538348A244195A93BCB1E</key>
+		<key>63DD0F723BEF4C89B4B09AFD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7740D296333248B9BF8E8AFF</key>
+		<key>84549D8D6C494FE681C75124</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8EEFB642748041C3AF82C922</key>
+		<key>86478AAE8113446FB989DB2B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D7DB304CA414106B3B43768</key>
+		<key>9CE8CFED64B747B69F125C41</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B3368EEA46A447049B43D1BB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D43D53FA67334F7B8E450A7C</key>
+		<key>D813FD482E63421391302164</key>
 		<dict>
 			<key>primary</key>
 			<true/>

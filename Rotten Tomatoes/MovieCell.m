@@ -50,6 +50,8 @@
     return @"MovieCell";
 }
 
-
+- (UIImage *)returnImage {
+    return [self.posterImageView image];
+}
 
 @end

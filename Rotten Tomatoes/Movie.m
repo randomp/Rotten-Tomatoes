@@ -14,10 +14,10 @@
     self = [super init];
     if (self) {
         self.title = dictionary[@"title"];
-        self.mpaaRating = dictionary[@"mpaa_Rating"];
+        self.mpaaRating = dictionary[@"mpaa_rating"];
         self.synopsis = dictionary[@"synopsis"];
         self.posterThumbUrl = dictionary[@"posters"][@"thumbnail"];
-        self.posterUrl = dictionary[@"posters"][@"original"];
+        self.posterUrl = [dictionary[@"posters"][@"original"] stringByReplacingOccurrencesOfString:@"tmb" withString:@"org"];
         self.year = [dictionary[@"year"] intValue];
         self.criticsScore = [dictionary[@"ratings"][@"critics_score"] intValue];
         self.audienceScore = [dictionary[@"ratings"][@"audience_score"] intValue];

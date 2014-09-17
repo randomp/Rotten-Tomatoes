@@ -10,6 +10,8 @@
 #import "MovieCell.h"
 #import "TSMessage.h"
 #import "MMProgressHUD.h"
+#import "MovieViewController.h"
+#import "Movie.h"
 
 @interface MovieListViewController () {
     NSString *rtApiUrl;
@@ -36,6 +38,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView setRowHeight:125.0f];
+    [self.searchDisplayController.searchResultsTableView setRowHeight:125.0f];
     [self.tableView registerNib:[UINib nibWithNibName:@"MovieCell" bundle:nil] forCellReuseIdentifier:[MovieCell cellIdentifier]];
     
     uiRefreshControl = [[UIRefreshControl alloc] init];
@@ -89,9 +92,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MovieCell *cell = (MovieCell *)[tableView dequeueReusableCellWithIdentifier:[MovieCell cellIdentifier]];
+    MovieCell *cell = (MovieCell *)[self.tableView dequeueReusableCellWithIdentifier:[MovieCell cellIdentifier]];
     if (!cell) {
-        cell = [[MovieCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[MovieCell cellIdentifier]];
+        cell = [[MovieCell alloc] init];
     }
     Movie *movie;
     if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -101,7 +104,7 @@
     } else {
         movie = self.movies[indexPath.row];
     }
-    cell.movie = movie;
+    [cell setMovie:movie];
     return cell;
 }
 
@@ -109,7 +112,6 @@
 {
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
     self.searchResult = [NSMutableArray arrayWithArray: [self.movies filteredArrayUsingPredicate:resultPredicate]];
-    NSLog(@"size: %d",(int)self.searchResult.count);
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
@@ -117,6 +119,23 @@
                                                          objectAtIndex:[self.searchDisplayController.searchBar
                                                                         selectedScopeButtonIndex]]];
     return YES;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.searchBar resignFirstResponder];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    MovieCell *movieCell = (MovieCell *)[tableView cellForRowAtIndexPath:indexPath];
+    
+    Movie *movie2Pass;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        movie2Pass = self.searchResult[indexPath.row];
+    } else {
+        movie2Pass = self.movies[indexPath.row];
+    }
+    MovieViewController *movieViewController = [[MovieViewController alloc] initWithMovie:movie2Pass];
+    movieViewController.preloadImage = [movieCell returnImage];
+    [self.navigationController pushViewController:movieViewController animated:YES];
 }
 
 - (void)getMoives {
